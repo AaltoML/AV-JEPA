@@ -3,33 +3,27 @@
 Official code for the paper **"AV-JEPA: Extending LeJEPA to Audio-Visual Self-Supervised Learning"**
 (ICML 2026 Workshop on Machine Learning for Audio).
 
-*Benjamin Robson, Santeri Mentu, Wenshuai Zhao, Arno Solin*
-ELLIS Institute Finland and Department of Computer Science, Aalto University
+**Project page: [jepa.benjaminhr.com](https://jepa.benjaminhr.com)**
 
-AV-JEPA is a joint-embedding predictive architecture for audio-visual
-representation learning. A single ViT-Base early-fusion encoder processes video
-tubelets and audio mel-spectrogram patches jointly, and is trained with the
-LeJEPA recipe: a multi-view invariance loss combined with the SIGReg
-(sliced characteristic-function) regularizer. Training happens entirely in
-latent space, with no decoder, no reconstruction target, no EMA teacher, no
-stop-gradients, and no contrastive negatives.
+_Benjamin Robson, Santeri Mentu, Wenshuai Zhao, Arno Solin_
+ELLIS Institute Finland and Department of Computer Science, Aalto University
 
 > Note: the model is referred to as `Echo` in the code (`Echo`, `DualEcho`,
 > `EchoTrainer` in `models.py`). This is the same model as AV-JEPA in the paper.
 
 ## Repository layout
 
-| File | Purpose |
-| --- | --- |
-| `train.py` | Self-supervised pretraining entry point |
-| `finetune.py` | End-to-end fine-tuning / frozen linear & attentive probes |
-| `retrieval.py` | Cross-modal audio-video retrieval (R@1/5/10) |
-| `models.py` | `Echo` encoder, `EchoTrainer` (LightningModule), SIGReg, projector, probes |
-| `fusion.py` | Early-fusion audio/video patch embeddings |
-| `transformer.py` | ViT encoder blocks |
-| `data.py` | WebDataset video/audio pipeline, mel spectrograms, masking, multi-view sampling |
-| `dataset_config.py` | Dataset registry (tar patterns, CSVs, mel statistics) |
-| `jobs/` | Example SLURM job scripts |
+| File                | Purpose                                                                         |
+| ------------------- | ------------------------------------------------------------------------------- |
+| `train.py`          | Self-supervised pretraining entry point                                         |
+| `finetune.py`       | End-to-end fine-tuning / frozen linear & attentive probes                       |
+| `retrieval.py`      | Cross-modal audio-video retrieval (R@1/5/10)                                    |
+| `models.py`         | `Echo` encoder, `EchoTrainer` (LightningModule), SIGReg, projector, probes      |
+| `fusion.py`         | Early-fusion audio/video patch embeddings                                       |
+| `transformer.py`    | ViT encoder blocks                                                              |
+| `data.py`           | WebDataset video/audio pipeline, mel spectrograms, masking, multi-view sampling |
+| `dataset_config.py` | Dataset registry (tar patterns, CSVs, mel statistics)                           |
+| `jobs/`             | Example SLURM job scripts                                                       |
 
 ## Setup
 
