@@ -1,0 +1,26 @@
+#!/bin/bash -l
+
+#SBATCH --time=04:00:00
+#SBATCH --gpus=1
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=16g
+#SBATCH --partition=<your-gpu-partition>
+##SBATCH --account=<your-account>
+
+#SBATCH -o "slurm_logs/%j_retrieval_vggsound.out"
+#SBATCH -e "slurm_logs/%j_retrieval_vggsound.err"
+
+# Load your cluster's modules (CUDA toolchain, conda/mamba), then:
+source activate av-jepa
+
+export PYTHONUNBUFFERED=1
+# export VGGSOUND_DIR=/path/to/VGGSound
+
+srun python ../retrieval.py \
+  --checkpoint_path "/path/to/pretrained.ckpt" \
+  --dataset vggsound \
+  --vit_size base \
+  --batch_size 32 \
+  --num_workers 8 \
+  --use_cls \
+  --output_dir "./runs/retrieval/cls"

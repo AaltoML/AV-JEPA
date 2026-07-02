@@ -1,0 +1,27 @@
+name: av-jepa
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ffmpeg<8
+
+  - pip
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu129
+
+      - torch==2.9.1+cu129
+      - torchvision==0.24.1+cu129
+      - torchaudio==2.9.1+cu129
+      - torchcodec==0.9
+
+      - lightning
+      - webdataset
+      - wandb
+      - tensorboard
+
+      - numpy<2
+      - pandas
+      - matplotlib
+      - scikit-learn
+      - GPUtil
+      - psutil

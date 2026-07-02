@@ -1,0 +1,36 @@
+#!/bin/bash -l
+
+#SBATCH --time=30:00:00
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=4
+#SBATCH --gpus-per-node=4
+#SBATCH --cpus-per-task=9
+#SBATCH --mem-per-cpu=40g
+#SBATCH --partition=<your-gpu-partition>
+##SBATCH --account=<your-account>
+
+#SBATCH -o "slurm_logs/%j_finetune_vggsound.out"
+#SBATCH -e "slurm_logs/%j_finetune_vggsound.err"
+
+# Load your cluster's modules (CUDA toolchain, conda/mamba), then:
+source activate av-jepa
+
+export PYTHONUNBUFFERED=1
+# export VGGSOUND_DIR=/path/to/VGGSound
+
+srun python ../finetune.py \
+  --pretrained_checkpoint "/path/to/pretrained.ckpt" \
+  --lr 2e-4 \
+  --backbone_lr_scale 0.05 \
+  --batch_size 160 \
+  --num_gpus 4 \
+  --num_workers 9 \
+  --num_workers_test 4 \
+  --num_frames 16 \
+  --frame_size 224 \
+  --epochs 30 \
+  --vit_size "base" \
+  --num_eval_clips 6 \
+  --attentive_probe \
+  --dataset vggsound \
+  --checkpoint_dir ./checkpoints
